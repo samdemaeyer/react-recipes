@@ -4,7 +4,7 @@
   "description": "React recipes project, client and api",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:api": "cd packages/graphql-api && ./node_modules/.bin/nodemon server.js",
+    "start:api": "cd packages/graphql-api && yarn start",
     "start:client": "cd packages/recipes-client && yarn start"
   },
   "author": "Sam De Maeyer",
