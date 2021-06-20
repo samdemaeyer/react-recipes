@@ -1,1 +1,1 @@
-# recipes-graphql
+# react-recipes
