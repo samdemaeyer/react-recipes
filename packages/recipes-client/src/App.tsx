@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client'
+import type { FC } from 'react'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { HomePage } from './routes/HomePage'
+import { RecipeDetails } from './routes/RecipeDetails'
 
-function App() {
+const App: FC = (): JSX.Element => {
+  const client = new ApolloClient({
+    uri: 'http://localhost:5000/graphql',
+    cache: new InMemoryCache(),
+  })
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Router>
+      <nav className="d-flex justify-content-center">
+        <Link to="/react-recipes" className="h1 my-4 text-primary">
+          React Recipes
+        </Link>
+      </nav>
+      <div className="container">
+        <ApolloProvider client={client}>
+          <Route exact path="/react-recipes" component={HomePage} />
+          <Route exact path="/react-recipes/recipe/:id" render={(routeProps) => <RecipeDetails {...routeProps} />} />
+        </ApolloProvider>
+      </div>
+    </Router>
+  )
 }
 
-export default App;
+export default App
